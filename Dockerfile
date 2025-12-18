@@ -1,6 +1,7 @@
 #docker build --network host -t huatuo/huatuo-bamai:latest .
 #FROM ubuntu:20.04 AS base
-FROM registry-haiyan.local.huya.com/library/ubuntu:20.04-native AS base
+#FROM registry-haiyan.local.huya.com/library/ubuntu:20.04-native AS base
+FROM registry-yctest.huya.info/library/ubuntu:20.04-native AS base
 USER root
 RUN apt-get update && apt-get install -y make curl clang libbpf-dev 
 ENV DEBIAN_FRONTEND=noninteractive

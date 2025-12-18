@@ -65,8 +65,9 @@ type softirqLatency struct {
 }
 
 type softirqLatencyData struct {
+	Enable       uint64
 	Timestamp    uint64
-	TotalLatency [4]uint64
+	TotalLatency [5]uint64
 }
 
 const (
@@ -112,10 +113,27 @@ func irqTypeName(id int) string {
 
 func irqAllowed(id int) bool {
 	switch id {
-	case softirqNetTx, softirqNetRx:
+	case softirqTime, softirqNetTx, softirqNetRx:
 		return true
 	default:
 		return false
+	}
+}
+
+func irqZoneName(id int) string {
+	switch id {
+	case 0:
+		return "0-1ms"
+	case 1:
+		return "1ms-10ms"
+	case 2:
+		return "10ms-25ms"
+	case 3:
+		return "25ms-50ms"
+	case 4:
+		return "50ms-inf"
+	default:
+		return "error"
 	}
 }
 
@@ -157,7 +175,7 @@ func (s *softirqLatency) Update() ([]*metric.Data, error) {
 			}
 			labels["cpuid"] = strconv.Itoa(cpuid)
 			for zoneid, zone := range lat.TotalLatency {
-				labels["zone"] = strconv.Itoa(zoneid)
+				labels["zone"] = irqZoneName(zoneid)
 				metricData = append(metricData, metric.NewGaugeData("latency", float64(zone), "softirq latency", labels))
 			}
 		}
