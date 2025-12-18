@@ -173,7 +173,7 @@ func attachIrqAndEventPipe(ctx context.Context, b bpf.BPF) (bpf.PerfEventReader,
 		},
 		{
 			ProgramName: "probe_tick_nohz_restart_sched_tick",
-			Symbol:      "tick_nohz_restart_sched_tick",
+			Symbol:      "__tick_nohz_idle_restart_tick",
 		},
 		{
 			ProgramName: "probe_tick_stop",
