@@ -6,7 +6,7 @@ BPF_DIR := $(ROOT_DIR)/bpf
 BPF_COMPILE := $(ROOT_DIR)/build/clang.sh
 BPF_INCLUDE := "-I$(BPF_DIR)/include"
 
-APP_COMMIT ?= $(shell git describe --dirty --long --always)
+APP_COMMIT=""
 APP_BUILD_TIME=$(shell date "+%Y%m%d%H%M%S")
 APP_VERSION="2.1.0"
 
